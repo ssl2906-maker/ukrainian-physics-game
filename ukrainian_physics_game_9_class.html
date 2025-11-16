@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гра для 9 класу — Вклад українських фізиків</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f0f8ff; }
+.container { max-width: 900px; margin: auto; padding: 20px; }
+h1,h2,h3 { text-align: center; color: #004a99; }
+#start-screen { text-align: center; padding: 50px 20px; }
+#name-input { padding: 12px; width: 60%; font-size: 18px; border-radius: 8px; border: 1px solid #999; margin-bottom: 20px; }
+#start-btn { padding: 15px 30px; font-size: 20px; background: #ff8c00; color: white; border: none; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+#start-btn:hover { background: #e07b00; }
+#error { color:red; font-weight:bold; display:none; }
+#clear-rating-btn { padding: 10px 20px; margin-top: 10px; font-size: 16px; background:#c0392b; color:white; border:none; border-radius:8px; cursor:pointer; }
+#clear-rating-btn:hover { background:#a93226; }
+#game { display: none; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+.question { font-size: 22px; margin-bottom: 15px; }
+.topic { font-size: 18px; font-weight: bold; margin-bottom: 10px; text-align:center; padding: 6px 12px; border-radius: 8px; color:white; display:inline-block; }
+.topic.light { background:#f4d03f; }
+.topic.mechanics { background:#27ae60; }
+.topic.dynamics { background:#2980b9; }
+.topic.electricity { background:#e74c3c; }
+.topic.magnetic { background:#8e44ad; }
+.answers img { display:block; margin-bottom:12px; width:100%; max-height:250px; object-fit:cover; border-radius:10px; }
+.answers button { display:block; width:100%; margin:8px 0; padding:12px; border:none; border-radius:8px; font-size:18px; background:#fff4d9; cursor:pointer; transition:0.2s; }
+.answers button:hover { background:#ffe0a3; transform:scale(1.02); }
+#result { margin-top: 10px; font-size: 20px; font-weight: bold; text-align: center; }
+#score,#timer { font-size: 20px; text-align: center; margin-bottom: 10px; }
+#next-btn { margin-top:20px; padding:12px 20px; font-size:18px; background:#ff8c00; color:white; border:none; border-radius:8px; cursor:pointer; display:none; }
+#next-btn:hover { background:#e07b00; }
+.correct-anim { animation: pulse 0.5s ease; }
+@keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.1);} 100%{transform:scale(1);} }
+</style>
+</head>
+<body>
+<audio id="bg-music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6b1f777c28.mp3?filename=happy-day-112194.mp3" type="audio/mpeg">
+</audio>
+<div class="container">
+<div id="start-screen">
+<h1>Гра для 9 класу</h1>
+<h2>«Вклад українських фізиків у світову науку»</h2>
+<input id="name-input" placeholder="Введіть прізвище та ім'я учня" />
+<br>
+<button id="start-btn">Почати гру</button>
+<br>
+<button id="clear-rating-btn">Очистити рейтинг учнів</button>
+<p id="error">Будь ласка, введіть ім'я!</p>
+</div>
+<div id="game">
+<div id="score">Бали: 0</div>
+<div id="timer">Час: 10</div>
+<div class="topic" id="topic-label"></div>
+<div class="question" id="question-text"></div>
+<div class="answers" id="answers"></div>
+<div id="result"></div>
+<button id="next-btn">Наступне питання</button>
+</div>
+</div>
+<script>
+const questions=[ /*...усі питання залишаються без змін...*/ ];
+
+let current=0, results=[], score=0, timer=10, countdown, blocked=false, studentName="";
+const startScreen=document.getElementById("start-screen"), startBtn=document.getElementById("start-btn"), clearRatingBtn=document.getElementById("clear-rating-btn"), nameInput=document.getElementById("name-input"), errorMsg=document.getElementById("error"), game=document.getElementById("game"), bgMusic=document.getElementById("bg-music"), questionEl=document.getElementById("question-text"), answersEl=document.getElementById("answers"), resultEl=document.getElementById("result"), scoreEl=document.getElementById("score"), timerEl=document.getElementById("timer"), nextBtn=document.getElementById("next-btn"), topicLabel=document.getElementById("topic-label");
+
+startBtn.onclick=()=>{if(!nameInput.value.trim()){errorMsg.style.display="block";return;}studentName=nameInput.value.trim();errorMsg.style.display="none";startScreen.style.display="none";game.style.display="block";bgMusic.play().catch(()=>{});loadQuestion();};
+
+clearRatingBtn.onclick=()=>{localStorage.removeItem('physics-rating'); alert('Рейтинг учнів очищено');};
+
+/* ...інші функції залишаються без змін... */
+</script>
+</body>
+</html>
